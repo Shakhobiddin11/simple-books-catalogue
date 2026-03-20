@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Library</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="title-header">
+    <div class="book-icon-container">
+      <a href="./index.html"><img src="./assets/book.svg" class="book-icon" alt="Book-Icon"></a>
+    </div>
+    
+    <div class="header-title-text">
+      <h3>The Library</h3>
+      <p>Discover your next favorite book</p>
+    </div>
+
+  </div>
+  <main>
+    <div class="title-body">
+
+      <h1>Discover Your Next Great Read</h1>
+      <p>Search millions of books, build your personal library, and never lose track of what to read next.</p>
+
+      <div class="search-input-container">
+        <div class="search-icon-container">
+          <img src="./assets/search.svg" class="search-icon" alt="Search icon">
+          <input type="text" class="search-input-bar" id="searchInput" placeholder="Search for books by title or author...">
+        </div>
+        <button class="search-btn" id="searchBtn">Search</button> 
+      </div>
+
+      <p id="status"></p>
+    </div>
+
+    <div class="content-wrapper">
+
+      <section class="grid-container" id="results"></section>
+      <nav class="favorites-container">
+      <div class="favorites-header">
+         <div class="favorites-header-icon">
+            <img src="./assets/heart.svg" alt="Heart-icon">
+        </div>
+        <div>
+          <h5>Favorites</h5>
+          <p id="favoritesCount">0 books saved</p>
+        </div>
+        
+      </div>
+
+        <div class="favorite-books" id="favorites"></div>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>Powered by <a href="https://openlibrary.org" target="_blank" class="footer-link-text">Open Library</a></p>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
