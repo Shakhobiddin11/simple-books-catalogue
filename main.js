@@ -31,7 +31,33 @@ button.addEventListener("click", async () => {
 
     status.textContent = "";
 
-    const book = data.docs[0];
+    results.innerHTML = "";
+
+  data.docs.slice(0, 20).forEach(book => {
+  const cover = book.cover_i
+    ? `https://covers.openlibrary.org/b/id/${book.cover_i}.jpg`
+    : "./assets/book.svg";
+
+  const card = document.createElement("div");
+  card.className = "book-card";
+
+  card.innerHTML = `
+    <div class="book-img-row">
+      <img src="${cover}" class="book-img" alt="Book cover">
+      <div class="js-add-favorite-btn">
+        <img src="./assets/heart.svg" alt="">
+      </div>
+    </div>
+
+    <div class="book-info-grid">
+      <p class="book-title">${book.title}</p>
+      <p class="book-author">${book.author_name?.join(", ") || "Unknown"}</p>
+      <p class="published-year">${book.first_publish_year || "N/A"}</p>
+    </div>
+  `;
+
+  results.appendChild(card);
+});
 
     const cover = book.cover_i
       ? `https://covers.openlibrary.org/b/id/${book.cover_i}.jpg`
