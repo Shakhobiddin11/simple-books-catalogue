@@ -98,12 +98,17 @@ body{
     font-weight: 500;
     width: 100%;
     height: 100%;
-    font-size: 13px;
+    font-size: 15px;
     border: none;
     outline: none;
     background-color: transparent;
-    color: #7c736a;
+    color: #2b2622;
     padding: 0;
+}
+
+.search-input-bar::placeholder {
+  color: #a8a29e;
+  font-size: 14px;
 }
 
 .search-icon-container{
@@ -120,6 +125,11 @@ body{
     box-sizing: border-box;
 }
 
+
+.search-icon-container:focus-within {
+  border-color: #27694d;
+  box-shadow: 0 0 0 2px rgba(39, 105, 77, 0.1);
+}
 
 .search-icon{
     width: 16px;
