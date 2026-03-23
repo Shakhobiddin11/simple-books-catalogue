@@ -91,7 +91,11 @@ async function searchBooks(query) {
 
       card.innerHTML = `
         <div class="book-img-row">
-          <img src="${cover}" class="book-img">
+          <img 
+            src="${cover}" 
+            class="book-img"
+            onerror="this.src='./assets/book.svg'"
+          >
           <div class="js-add-favorite-btn ${isFav ? "active" : ""}">
             <svg width="14" height="14" viewBox="0 0 16 16">
               <path 
@@ -163,7 +167,11 @@ function renderFavorites() {
       : "./assets/book.svg";
 
     div.innerHTML = `
-      <img src="${cover}" class="favorite-book-img" alt="book-cover">
+      <img 
+        src="${cover}" 
+        class="favorite-book-img"
+        onerror="this.src='./assets/book.svg'"
+      >
 
       <div class="favorite-book-info">
         <p class="favorite-book-title">${book.title}</p>
