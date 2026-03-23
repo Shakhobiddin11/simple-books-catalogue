@@ -7,6 +7,9 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+  <!-- ── Header ── -->
+  <!-- Logo icon + app name and tagline -->
   <div class="title-header">
     <div class="book-icon-container">
       <a href="./index.html"><img src="./assets/book.svg" class="book-icon" alt="Book-Icon"></a>
@@ -16,14 +19,17 @@
       <h3>The Library</h3>
       <p>Discover your next favorite book</p>
     </div>
-
   </div>
-  <main>
-    <div class="title-body">
 
+  <main>
+
+    <!-- ── Hero Section ── -->
+    <!-- Title, subtitle and search bar -->
+    <div class="title-body">
       <h1>Discover Your Next Great Read</h1>
       <p>Search millions of books, build your personal library, and never lose track of what to read next.</p>
 
+      <!-- Search bar: icon + input + button -->
       <div class="search-input-container">
         <div class="search-icon-container">
           <img src="./assets/search.svg" class="search-icon" alt="Search icon">
@@ -32,33 +38,46 @@
         <button class="search-btn" id="searchBtn">Search</button> 
       </div>
 
+      <!-- Loading / error status message — updated by JS -->
       <p id="status"></p>
     </div>
 
+    <!-- ── Main Content: Grid + Favorites Sidebar ── -->
     <div class="content-wrapper">
 
+      <!-- Book results grid — populated by JS after search -->
       <section class="grid-container" id="results"></section>
-      <nav class="favorites-container">
-      <div class="favorites-header">
-         <div class="favorites-header-icon">
-            <img src="./assets/heart.svg" alt="Heart-icon">
-        </div>
-        <div>
-          <h5>Favorites</h5>
-          <p id="favoritesCount">0 books saved</p>
-        </div>
-        
-      </div>
 
+      <!-- ── Favorites Sidebar ── -->
+      <nav class="favorites-container">
+
+        <!-- Sidebar header: heart icon + title + count -->
+        <div class="favorites-header">
+          <div class="favorites-header-icon">
+            <img src="./assets/heart.svg" alt="Heart-icon">
+          </div>
+          <div>
+            <h5>Favorites</h5>
+            <!-- Count updated by JS -->
+            <p id="favoritesCount">0 books saved</p>
+          </div>
+        </div>
+
+        <!-- Favorite book items — populated by JS -->
         <div class="favorite-books" id="favorites"></div>
+
       </nav>
     </div>
+
   </main>
 
+  <!-- ── Footer ── -->
   <footer class="footer">
     <p>Powered by <a href="https://openlibrary.org" target="_blank" class="footer-link-text">Open Library</a></p>
   </footer>
 
+  <!-- Main JavaScript -->
   <script src="main.js"></script>
+
 </body>
 </html>

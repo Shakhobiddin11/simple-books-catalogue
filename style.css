@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap');
 
+/* ── CSS Variables ── */
 :root {
     --white: #ffffff;
     --green: #27694d;
@@ -18,62 +19,71 @@
     --shadow: #c4b8a8;
     --favorite: #eaf0ed;
 }
-main{
-    flex: 1;
-}
 
+/* ── Base ── */
 body {
     background-color: #f7f4ef;
     margin: 0;
     padding: 0;
-
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
-.title-header{
+
+main {
+    flex: 1;
+}
+
+/* ── Header ── */
+.title-header {
     display: flex;
     padding-top: 12px;
     padding-bottom: 12px;
     align-items: center;
-    border-bottom: 1px solid  #E7E2DA;
+    border-bottom: 1px solid #E7E2DA;
 }
-.book-icon-container{
+
+.book-icon-container {
     margin-right: 12px;
     margin-left: 60px;
 }
-.book-icon{
+
+.book-icon {
     width: 22px;
     height: 22px;
     background-color: #27694d;
     padding: 10px 10px;
     border-radius: 12px;
 }
-.header-title-text{
+
+.header-title-text {
     padding: 0px;
     margin-top: 0px;
 }
-.header-title-text p{
+
+.header-title-text p {
     font-family: 'Source Sans 3';
     font-size: 14px;
     color: #7c736a;
     margin: 0px;
     margin-bottom: 2px;
 }
-.header-title-text h3{
+
+.header-title-text h3 {
     font-family: 'Playfair Display';
     font-size: 22px;
     color: #2b2622;
     margin: 0;
 }
 
-.title-body{
+/* ── Hero / Title Section ── */
+.title-body {
     width: 65%;
     margin: 0 auto;
     text-align: center;
 }
 
-.title-body h1{
+.title-body h1 {
     font-family: 'Playfair Display';
     font-style: normal;
     font-weight: 600;
@@ -82,7 +92,8 @@ body {
     margin-bottom: 10px;
 }
 
-.title-body > p{
+/* Direct child p only — prevents cascading into book cards */
+.title-body > p {
     font-family: 'Source Sans 3';
     max-width: 475px;
     margin: 0 auto;
@@ -90,7 +101,8 @@ body {
     color: #7c736a;
 }
 
-.search-input-container{
+/* ── Search Bar ── */
+.search-input-container {
     display: flex;
     flex-direction: row;
     max-width: 570px;
@@ -100,7 +112,7 @@ body {
     gap: 8px;
 }
 
-.search-input-bar{
+.search-input-bar {
     font-family: 'Source Sans 3';
     font-weight: 500;
     width: 100%;
@@ -114,15 +126,14 @@ body {
 }
 
 .search-input-bar::placeholder {
-  color: #a8a29e;
-  font-size: 14px;
+    color: #a8a29e;
+    font-size: 14px;
 }
 
-.search-icon-container{
+.search-icon-container {
     display: flex;
     align-items: center;
     flex: 1;
-    gap: 0px;
     background-color: white;
     border: 1px solid #E7E2DA;
     width: 100%;
@@ -132,13 +143,13 @@ body {
     box-sizing: border-box;
 }
 
-
+/* Green border on focus */
 .search-icon-container:focus-within {
-  border-color: #27694d;
-  box-shadow: 0 0 0 2px rgba(39, 105, 77, 0.1);
+    border-color: #27694d;
+    box-shadow: 0 0 0 2px rgba(39, 105, 77, 0.1);
 }
 
-.search-icon{
+.search-icon {
     width: 16px;
     height: 16px;
     pointer-events: none;
@@ -146,7 +157,7 @@ body {
     flex-shrink: 0;
 }
 
-.search-btn{
+.search-btn {
     font-family: 'Source Sans 3';
     font-weight: 400;
     background-color: #27694d;
@@ -160,13 +171,16 @@ body {
     height: 44px;
 }
 
+/* Loading / error status text */
 #status {
-  text-align: center;
-  margin-top: 10px;
-  font-family: 'Source Sans 3';
-  color: #7c736a;
+    text-align: center;
+    margin-top: 10px;
+    font-family: 'Source Sans 3';
+    color: #7c736a;
 }
-.content-wrapper{
+
+/* ── Layout: Grid + Favorites Side by Side ── */
+.content-wrapper {
     display: flex;
     flex-direction: row;
     width: 90%;
@@ -175,49 +189,71 @@ body {
     align-items: flex-start;
 }
 
+/* Stack vertically on small screens */
 @media (max-width: 768px) {
-  .content-wrapper {
-    flex-direction: column;
-  }
+    .content-wrapper {
+        flex-direction: column;
+    }
 
-  .favorites-container {
-    width: 100%;
-  }
+    .favorites-container {
+        width: 100%;
+    }
 }
 
-.grid-container{
+/* ── Book Cards Grid ── */
+.grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 16px;
     margin-top: 30px;
     text-align: left;
-    /*width: 65%;*/
     margin-left: auto;
     margin-right: auto;
     flex: 1;
 }
 
-.book-card{
+.grid-container p {
+    text-align: center;
+    width: 100%;
+    grid-column: 1 / -1;
+}
+
+.book-card {
     background-color: #fcfaf7;
     border-radius: 8px;
     padding: 0px;
     cursor: pointer;
     box-shadow: 0 2px 8px #c4b8a8;
-    overflow: hidden; 
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-.book-img-row{
+
+/* Lift effect on hover */
+.book-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px #c4b8a8;
+}
+
+.book-img-row {
     margin-bottom: 0px;
     position: relative;
 }
 
-.book-img{
+.book-img {
     width: 100%;
     height: 320px;
     object-fit: cover;
     display: block;
 }
 
-.book-title{
+.book-info-grid {
+    width: 100%;
+    text-align: left;
+    padding: 10px 12px 12px 12px;
+    box-sizing: border-box;
+}
+
+.book-title {
     font-family: 'Source Sans 3';
     margin: 0 0 4px 0;
     font-size: 14px;
@@ -225,14 +261,22 @@ body {
     color: #2b2622;
 }
 
-.book-info-grid{
-    width: 100%;
-    text-align: left;
-    padding: 10px 12px 12px 12px;
-    box-sizing: border-box;
+.book-author {
+    font-family: 'Source Sans 3';
+    font-size: 13px;
+    color: #7c736a;
+    margin: 0 0 2px 0;
 }
 
-.js-add-favorite-btn{
+.published-year {
+    font-family: 'Source Sans 3';
+    font-size: 12px;
+    color: #7c736a;
+    margin: 0;
+}
+
+/* ── Favorite Heart Button (on book card) ── */
+.js-add-favorite-btn {
     position: absolute;
     top: 8px;
     right: 8px;
@@ -243,33 +287,26 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     box-shadow: 0 1px 4px #c4b8a8;
-}
-
-.js-add-favorite-btn img{
-    width: 14px;
-    height: 14px;
-}
-
-.book-author{
-    font-family: 'Source Sans 3';
-    font-size: 13px;
     color: #7c736a;
-    margin: 0 0 2px 0;
+    transition: transform 0.15s ease;
 }
 
-.published-year{
-    font-family: 'Source Sans 3';
-    font-size: 12px;
-    color: #7c736a;
-    margin: 0;
+/* Red when book is favorited */
+.js-add-favorite-btn.active {
+    color: #ef4444;
 }
 
+.js-add-favorite-btn:hover {
+    transform: scale(1.15);
+}
 
-.favorites-container{
+.js-add-favorite-btn:active {
+    transform: scale(0.9);
+}
+
+/* ── Favorites Sidebar ── */
+.favorites-container {
     width: 220px;
     flex-shrink: 0;
     background-color: #fcfaf7;
@@ -279,7 +316,7 @@ body {
     box-shadow: 0 2px 8px #c4b8a8;
 }
 
-.favorites-header{
+.favorites-header {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -287,12 +324,6 @@ body {
     margin-bottom: 16px;
     border-bottom: 1px solid #E7E2DA;
     padding-bottom: 12px;
-}
-
-.favorites-header-icon img{
-    width: 20px;
-    height: 20px;
-    filter: brightness(0) saturate(100%) invert(33%) sepia(50%) saturate(500%) hue-rotate(110deg) brightness(80%);
 }
 
 .favorites-header-icon {
@@ -306,7 +337,14 @@ body {
     flex-shrink: 0;
 }
 
-.favorites-header h5{
+/* Green tint filter on heart icon */
+.favorites-header-icon img {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) saturate(100%) invert(33%) sepia(50%) saturate(500%) hue-rotate(110deg) brightness(80%);
+}
+
+.favorites-header h5 {
     font-family: 'Playfair Display';
     font-weight: 700;
     font-size: 16px;
@@ -314,14 +352,14 @@ body {
     margin: 0 0 1px 0;
 }
 
-.favorites-header p{
+.favorites-header p {
     font-family: 'Source Sans 3';
     font-size: 12px;
     color: #7c736a;
     margin: 0;
 }
 
-
+/* ── Favorite Book Items ── */
 .favorite-book-item {
     display: flex;
     flex-direction: row;
@@ -341,7 +379,7 @@ body {
     object-fit: cover;
     border-radius: 4px;
     flex-shrink: 0;
-} 
+}
 
 .favorite-book-info {
     flex: 1;
@@ -369,6 +407,12 @@ body {
     margin: 0;
 }
 
+/* Remove from favorites button — always red */
+.remove-fav {
+    color: #ef4444;
+    cursor: pointer;
+}
+
 .favorite-book-heart {
     width: 14px;
     height: 14px;
@@ -376,7 +420,7 @@ body {
     cursor: pointer;
 }
 
-
+/* ── Footer ── */
 .footer {
     text-align: center;
     padding: 20px 0;
@@ -397,25 +441,6 @@ body {
     font-weight: 500;
 }
 
-.footer-link:hover {
+.footer-link-text:hover {
     text-decoration: underline;
-}
-
-.js-add-favorite-btn {
-    color: #7c736a;       /* ADDED: default stroke color — matches original heart */
-}
-/* active (favorite) */
-.js-add-favorite-btn.active {
-  color: #ef4444;
-}
-
-/* favorites list heart */
-.remove-fav {
-  color: #ef4444;
-  cursor: pointer;
-}
-
-/* hover effect */
-.js-add-favorite-btn:hover {
-  transform: scale(1.1);
 }
