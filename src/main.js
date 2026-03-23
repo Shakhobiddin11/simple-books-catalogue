@@ -1,17 +1,21 @@
+// ── Imports ──
+import { fetchBooks } from "./utils/api.js";
+import { loadFavorites, saveFavorites } from "./utils/favorites.js";
+
 // ── DOM Elements ──
 const input = document.getElementById("searchInput");
 const button = document.getElementById("searchBtn");
 const status = document.getElementById("status");
 const results = document.getElementById("results");
 
-// Load favorites from localStorage or start with empty array
-let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+// Load favorites from localStorage on page load
+let favorites = loadFavorites();
 
 // Render favorites sidebar on page load
 renderFavorites();
 
 // ── Search Function ──
-// Fetches books from Open Library API and renders them as cards
+// Validates input, fetches books and renders them as cards
 async function searchBooks(query) {
 
   // Validate input
@@ -28,18 +32,11 @@ async function searchBooks(query) {
   status.textContent = "Loading...";
 
   try {
-    const response = await fetch(
-      `https://openlibrary.org/search.json?q=${encodeURIComponent(query)}`
-    );
-
-    if (!response.ok) {
-      throw new Error("API error");
-    }
-
-    const data = await response.json();
+    // Fetch books from API via utility function
+    const docs = await fetchBooks(query);
 
     // Show message if no results found
-    if (data.docs.length === 0) {
+    if (docs.length === 0) {
       results.innerHTML = `<p style="font-family: 'Source Sans 3'; color: #7c736a; text-align: center; margin-top: 40px; font-size: 15px; width: 100%;">No books found for "<strong>${query}</strong>"</p>`;
       status.textContent = "";
       return;
@@ -49,12 +46,12 @@ async function searchBooks(query) {
     results.innerHTML = "";
 
     // Render first 20 results as book cards
-    data.docs.slice(0, 20).forEach(book => {
+    docs.slice(0, 20).forEach(book => {
 
       // Use cover image if available, otherwise fallback to default icon
       const cover = book.cover_i
         ? `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`
-        : "./assets/book.svg";
+        : null;
 
       // Check if this book is already in favorites
       const isFav = favorites.find(b => b.key === book.key);
@@ -65,11 +62,11 @@ async function searchBooks(query) {
       // Render card HTML with heart filled if already favorited
       card.innerHTML = `
         <div class="book-img-row">
-          <img 
-            src="${cover}" 
-            class="book-img"
-            onerror="this.src='./assets/book.svg'"
-          >
+          ${cover
+            ? `<img src="${cover}" class="book-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+               <div class="no-cover" style="display:none;">No Cover</div>`
+            : `<div class="no-cover">No Cover</div>`
+          }
           <div class="js-add-favorite-btn ${isFav ? "active" : ""}">
             <svg width="14" height="14" viewBox="0 0 16 16">
               <path 
@@ -109,7 +106,7 @@ async function searchBooks(query) {
           favBtn.querySelector("path").setAttribute("stroke", "currentColor");
         }
 
-        saveFavorites();
+        saveFavorites(favorites);
         renderFavorites();
       });
 
@@ -136,13 +133,6 @@ input.addEventListener("keydown", (e) => {
 button.addEventListener("click", () => {
   searchBooks(input.value.trim());
 });
-
-// ── Helper Functions ──
-
-// Save favorites array to localStorage
-function saveFavorites() {
-  localStorage.setItem("favorites", JSON.stringify(favorites));
-}
 
 // ── Render Favorites Sidebar ──
 function renderFavorites() {
@@ -173,14 +163,14 @@ function renderFavorites() {
     // Use cover image if available, otherwise fallback to default icon
     const cover = book.cover_i
       ? `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`
-      : "./assets/book.svg";
+      : null;
 
     div.innerHTML = `
-      <img 
-        src="${cover}" 
-        class="favorite-book-img"
-        onerror="this.src='./assets/book.svg'"
-      >
+      ${cover
+        ? `<img src="${cover}" class="favorite-book-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+           <div class="no-cover-small" style="display:none;">No Cover</div>`
+        : `<div class="no-cover-small">No Cover</div>`
+      }
 
       <div class="favorite-book-info">
         <p class="favorite-book-title">${book.title}</p>
@@ -201,7 +191,7 @@ function renderFavorites() {
     // Remove from favorites and sync heart state in search results
     div.querySelector(".remove-fav").addEventListener("click", () => {
       favorites = favorites.filter(b => b.key !== book.key);
-      saveFavorites();
+      saveFavorites(favorites);
       renderFavorites();
 
       // Find matching card in search results by title and reset its heart

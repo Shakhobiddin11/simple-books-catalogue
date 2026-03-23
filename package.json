@@ -2,16 +2,16 @@
   "name": "simple-books-catalogue",
   "version": "1.0.0",
   "description": "https://drive.google.com/file/d/1RBRcuH-_oAvtjem5Xs0c4NXZ8I38aYyH/view",
-  "main": "main.js",
+  "main": "src/main.js",
   "scripts": {
-  "dev": "vite",
-  "build": "vite build",
-  "preview": "vite preview"
-},
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "dependencies": {
     "vite": "^8.0.2"
   }
