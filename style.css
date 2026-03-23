@@ -153,6 +153,12 @@ body{
     height: 44px;
 }
 
+#status {
+  text-align: center;
+  margin-top: 10px;
+  font-family: 'Source Sans 3';
+  color: #7c736a;
+}
 .content-wrapper{
     display: flex;
     flex-direction: row;
@@ -386,4 +392,23 @@ body{
 
 .footer-link:hover {
     text-decoration: underline;
+}
+
+.js-add-favorite-btn {
+    color: #7c736a;       /* ADDED: default stroke color — matches original heart */
+}
+/* active (favorite) */
+.js-add-favorite-btn.active {
+  color: #ef4444;
+}
+
+/* favorites list heart */
+.remove-fav {
+  color: #ef4444;
+  cursor: pointer;
+}
+
+/* hover effect */
+.js-add-favorite-btn:hover {
+  transform: scale(1.1);
 }
